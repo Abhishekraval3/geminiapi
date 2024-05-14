@@ -1,0 +1,106 @@
+<!-- HTML file with inline styles for customer to insert an image and dynamically adjust answer space -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Ensure body covers at least the viewport height */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #answerSpace {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+            overflow-wrap: break-word; /* Allow long words to break and wrap */
+        }
+    </style>
+</head>
+<body>
+    <!-- Form for customer to insert an image -->
+    <form id="imageForm" action="#" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="imageInput">Insert Image:</label>
+        <input type="file" id="imageInput" name="image" accept="image/*">
+        <button type="submit"onclick="submitForm()">Submit</button>
+    </form>
+
+    <!-- Empty space to display answers -->
+    <div id="answerSpace">
+        {{ans}}
+        <!-- Answers will be displayed here -->
+    </div>
+</body>
+</html>
+<script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    function submitForm() {
+        // Get the form element
+        var form = document.getElementById("imageForm");
+
+        // Submit the form
+        form.submit();
+    }
+  </script>
